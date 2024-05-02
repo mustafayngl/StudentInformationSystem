@@ -151,6 +151,11 @@ coverage*.info
 *.coverage
 *.coveragexml
 
+# MSSQL deny code
+appsettings.json
+appsettings.Development.json
+
+
 # NCrunch
 _NCrunch_*
 .*crunch*.local.xml
