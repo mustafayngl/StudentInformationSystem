@@ -152,5 +152,42 @@ namespace StudentInformationSystem.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
+        // GET: User/Login
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        // POST: User/Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(string username, string password)
+        {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                ModelState.AddModelError("", "Username and password are required.");
+                return View();
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid username or password.");
+                return View();
+            }
+
+            // Authentication successful
+            // Determine the role of the authenticated user
+            switch (user.Role)
+            {
+                case "admin":
+                    return RedirectToAction("Index", "User"); // Redirect to admin dashboard
+                case "student":
+                    return RedirectToAction("Index", "Student"); // Redirect to student dashboard
+                default:
+                    // Unknown role, handle accordingly (e.g., redirect to homepage)
+                    return RedirectToAction("Index", "Home");
+            }
+        }
     }
 }
