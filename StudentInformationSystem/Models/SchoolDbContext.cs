@@ -6,12 +6,15 @@ namespace StudentInformationSystem.Models
     {
         public SchoolDbContext(DbContextOptions<SchoolDbContext> options) : base(options)
         {
-
         }
 
         public DbSet<Student> Students { get; set; }
         public DbSet<User> Users { get; set; }
 
-        // Add DbSet properties for other entities if needed
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>().Property(u => u.IdentityNumber).IsRequired().HasMaxLength(50);
+        }
     }
 }

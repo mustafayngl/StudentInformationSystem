@@ -49,11 +49,9 @@ namespace StudentInformationSystem.Controllers
         }
 
         // POST: User/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Username,Password,Role")] User user)
+        public async Task<IActionResult> Create([Bind("Id,Username,Password,Role,IdentityNumber")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -81,11 +79,9 @@ namespace StudentInformationSystem.Controllers
         }
 
         // POST: User/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Username,Password,Role")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Username,Password,Role,IdentityNumber")] User user)
         {
             if (id != user.Id)
             {
@@ -152,6 +148,7 @@ namespace StudentInformationSystem.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
+
         // GET: User/Login
         public IActionResult Login()
         {
@@ -161,32 +158,30 @@ namespace StudentInformationSystem.Controllers
         // POST: User/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string username, string password)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Username and password are required.");
-                return View();
+                return View(model);
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == model.Username && u.Password == model.Password && u.IdentityNumber == model.IdentityNumber);
             if (user == null)
             {
-                ModelState.AddModelError("", "Invalid username or password.");
-                return View();
+                ModelState.AddModelError("", "Invalid username, password or identity number.");
+                return View(model);
             }
 
             // Authentication successful
-            // Determine the role of the authenticated user
             switch (user.Role)
             {
                 case "admin":
                     return RedirectToAction("Index", "User"); // Redirect to admin dashboard
                 case "student":
-                    return RedirectToAction("Index", "Student"); // Redirect to student dashboard
+                    return RedirectToAction("DetailsByIdentityNumber", "Student", new { identityNumber = user.IdentityNumber }); // Redirect to student details
                 default:
-                    // Unknown role, handle accordingly (e.g., redirect to homepage)
-                    return RedirectToAction("Index", "Home");
+                    ModelState.AddModelError("", "Unknown role.");
+                    return View(model);
             }
         }
     }

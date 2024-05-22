@@ -17,6 +17,9 @@ namespace StudentInformationSystem.Models
         [Required(ErrorMessage = "Please select a role")]
         public string Role { get; set; }
 
+        public string IdentityNumber { get; set; } // IdentityNumber alanı eklendi
+
+
         // Add other properties as needed
     }
 }

@@ -42,6 +42,24 @@ namespace StudentInformationSystem.Controllers
             return View(student);
         }
 
+        // GET: Student/DetailsByIdentityNumber/12345678
+        public async Task<IActionResult> DetailsByIdentityNumber(string identityNumber)
+        {
+            if (string.IsNullOrEmpty(identityNumber))
+            {
+                return NotFound();
+            }
+
+            var student = await _context.Students
+                .FirstOrDefaultAsync(m => m.IdentityNumber == identityNumber);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return View("Details", student); // Details view'ını kullanarak öğrenci bilgilerini gösteriyoruz
+        }
+
         // GET: Student/Create
         public IActionResult Create()
         {
@@ -49,8 +67,6 @@ namespace StudentInformationSystem.Controllers
         }
 
         // POST: Student/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,IdentityNumber,Name,Surname,Gender,BirthDate,PhoneNumber,Email,Address")] Student student)
@@ -81,8 +97,6 @@ namespace StudentInformationSystem.Controllers
         }
 
         // POST: Student/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,IdentityNumber,Name,Surname,Gender,BirthDate,PhoneNumber,Email,Address")] Student student)
