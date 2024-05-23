@@ -69,7 +69,7 @@ namespace StudentInformationSystem.Controllers
         // POST: Student/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdentityNumber,Name,Surname,Gender,BirthDate,PhoneNumber,Email,Address")] Student student)
+        public async Task<IActionResult> Create([Bind("Id,IdentityNumber,Name,Surname,Gender,BirthDate,PhoneNumber,Email,Address,StudentNumber")] Student student)
         {
             if (ModelState.IsValid)
             {

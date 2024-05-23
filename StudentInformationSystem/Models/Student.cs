@@ -37,6 +37,10 @@ namespace StudentInformationSystem.Models
         [StringLength(100)]
         public string Address { get; set; }
 
+        [Required(ErrorMessage = "Please enter the student's student number")]
+        [StringLength(9)]
+        public string StudentNumber { get; set; }
+
         // Add other properties as needed
     }
 }
