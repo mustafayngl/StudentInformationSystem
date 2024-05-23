@@ -1,0 +1,40 @@
+﻿@model IEnumerable<StudentInformationSystem.Models.User>
+
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div class="button-container">
+    <div>
+        <a href="@Url.Action("Index", "Lesson")" class="btn btn-primary manage-button">Manage Lessons</a>
+    </div>
+    <div>
+        <a href="@Url.Action("Index", "User")" class="btn btn-primary manage-button">Manage Users</a>
+    </div>
+    <div>
+        <a href="@Url.Action("Index", "Teacher")" class="btn btn-primary manage-button">Manage Teachers</a>
+    </div>
+    <div>
+        <a href="@Url.Action("Index", "Student")" class="btn btn-primary manage-button">Manage Students</a>
+    </div>
+</div>
+
+<style>
+    .button-container {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    .manage-button {
+        flex: 1;
+        min-width: 200px;
+        text-align: center;
+        padding: 20px;
+        font-size: 16px;
+        margin: 5px;
+    }
+</style>

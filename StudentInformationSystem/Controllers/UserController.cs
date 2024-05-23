@@ -176,7 +176,7 @@ namespace StudentInformationSystem.Controllers
             switch (user.Role)
             {
                 case "admin":
-                    return RedirectToAction("Index", "User"); // Redirect to admin dashboard
+                    return RedirectToAction("Index", "Admin"); // Redirect to admin dashboard
                 case "student":
                     return RedirectToAction("DetailsByIdentityNumber", "Student", new { identityNumber = user.IdentityNumber }); // Redirect to student details
                 default:
