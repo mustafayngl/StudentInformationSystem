@@ -37,4 +37,30 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=User}/{action=Login}/{id?}");
 
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "admin",
+    defaults: new { controller = "Admin", action = "Index" }
+);
+app.MapControllerRoute(
+    name: "student",
+    pattern: "student",
+    defaults: new { controller = "Student", action = "Index" }
+);
+app.MapControllerRoute(
+    name: "teacher",
+    pattern: "teacher",
+    defaults: new { controller = "Teacher", action = "Index" }
+);
+app.MapControllerRoute(
+    name: "lesson",
+    pattern: "lesson",
+    defaults: new { controller = "Lesson", action = "Index" }
+);
+app.MapControllerRoute(
+    name: "user",
+    pattern: "user",
+    defaults: new { controller = "User", action = "Index" }
+);
+
 app.Run();
