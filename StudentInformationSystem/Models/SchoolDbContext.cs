@@ -12,11 +12,25 @@ namespace StudentInformationSystem.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
+        public DbSet<Grade> Grades { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>().Property(u => u.IdentityNumber).IsRequired().HasMaxLength(50);
+
+            // Configure relationships
+            modelBuilder.Entity<Grade>()
+                .HasOne(g => g.Student)
+                .WithMany(s => s.Grades)
+                .HasForeignKey(g => g.StudentId)
+                .IsRequired();
+
+            modelBuilder.Entity<Grade>()
+                .HasOne(g => g.Lesson)
+                .WithMany()
+                .HasForeignKey(g => g.LessonId)
+                .IsRequired();
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentInformationSystem.Models;
 
@@ -11,9 +12,11 @@ using StudentInformationSystem.Models;
 namespace StudentInformationSystem.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    partial class SchoolDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240525183709_GradeAnnouncementAdd")]
+    partial class GradeAnnouncementAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,7 +221,8 @@ namespace StudentInformationSystem.Migrations
 
                     b.Property<string>("IdentityNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -248,7 +252,7 @@ namespace StudentInformationSystem.Migrations
                         .IsRequired();
 
                     b.HasOne("StudentInformationSystem.Models.Student", "Student")
-                        .WithMany("Grades")
+                        .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -256,11 +260,6 @@ namespace StudentInformationSystem.Migrations
                     b.Navigation("Lesson");
 
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("StudentInformationSystem.Models.Student", b =>
-                {
-                    b.Navigation("Grades");
                 });
 #pragma warning restore 612, 618
         }

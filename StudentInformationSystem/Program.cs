@@ -62,5 +62,19 @@ app.MapControllerRoute(
     pattern: "user",
     defaults: new { controller = "User", action = "Index" }
 );
-
+app.MapControllerRoute(
+    name: "teachermain",
+    pattern: "teachermain",
+    defaults: new { controller = "TeacherMain", action = "Index" }
+);
+app.MapControllerRoute(
+    name: "grade",
+    pattern: "grade",
+    defaults: new { controller = "Grade", action = "Index" }
+);
+app.MapControllerRoute(
+    name: "announcement",
+    pattern: "announcement",
+    defaults: new { controller = "Announcement", action = "Index" }
+);
 app.Run();

@@ -42,5 +42,7 @@ namespace StudentInformationSystem.Models
         public string StudentNumber { get; set; }
 
         // Add other properties as needed
+        // Navigation property to represent the collection of grades associated with a student
+        public ICollection<Grade> Grades { get; set; }
     }
 }

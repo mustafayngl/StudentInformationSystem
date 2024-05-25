@@ -19,8 +19,6 @@ namespace StudentInformationSystem.Models
         [StringLength(1)]
         public string Semester { get; set; }
 
-        [Required(ErrorMessage = "Please enter the lesson's credit")]
-        [Range(0,1, ErrorMessage = "Please enter a integer")]
         public int Credit { get; set; }
 
         // Add other properties as needed
