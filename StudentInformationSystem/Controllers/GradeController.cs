@@ -42,28 +42,47 @@ namespace StudentInformationSystem.Controllers
             return View(grade);
         }
 
-        // GET: Grade/Create
         public IActionResult Create()
         {
+            ViewBag.StudentList = new SelectList(_context.Students, "StudentNumber", "StudentNumber");
+            ViewBag.LessonList = new SelectList(_context.Lessons, "Code", "Code");
             return View();
         }
 
         // POST: Grade/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StudentNumber,Code,GradeValue")] Grade grade)
+        public async Task<IActionResult> Create([Bind("StudentNumber,Code,GradeValue,Comments")] Grade grade)
         {
             if (ModelState.IsValid)
             {
+                // Find the corresponding student and lesson based on the selected values
+                var student = await _context.Students.FirstOrDefaultAsync(s => s.StudentNumber == grade.StudentNumber);
+                var lesson = await _context.Lessons.FirstOrDefaultAsync(l => l.Code == grade.Code);
+
+                // If either student or lesson is not found, return NotFound
+                if (student == null || lesson == null)
+                {
+                    return NotFound();
+                }
+
+                // Assign the IDs of the student and lesson to the grade object
+                grade.StudentId = student.Id;
+                grade.LessonId = lesson.Id;
+
+                // Add the grade to the context and save changes
                 _context.Add(grade);
                 await _context.SaveChangesAsync();
+
+                // Redirect to the index action
                 return RedirectToAction(nameof(Index));
             }
+
+            // If ModelState is not valid, repopulate the dropdown lists and return the view
+            ViewBag.StudentList = new SelectList(_context.Students, "StudentNumber", "StudentNumber", grade.StudentNumber);
+            ViewBag.LessonList = new SelectList(_context.Lessons, "Code", "Code", grade.Code);
             return View(grade);
         }
-
         // GET: Grade/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

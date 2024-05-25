@@ -13,9 +13,13 @@ namespace StudentInformationSystem.Models
         [Required(ErrorMessage = "Please select the lesson")]
         public string Code { get; set; } // Reference to Lesson.Code
 
+        // Additional properties
+        public int StudentId { get; set; } // Reference to Student.Id
+        public int LessonId { get; set; } // Reference to Lesson.Id
+
 
         [Required(ErrorMessage = "Please enter the grade value")]
         public string GradeValue { get; set; }
-
+        
     }
 }

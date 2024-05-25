@@ -14,11 +14,16 @@ namespace StudentInformationSystem.Models
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
 
+        public DbSet<Grade> Grades { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().Property(u => u.IdentityNumber).IsRequired().HasMaxLength(50);
+
         }
+
         public DbSet<StudentInformationSystem.Models.Grade> Grade { get; set; } = default!;
         public DbSet<StudentInformationSystem.Models.Announcement> Announcement { get; set; } = default!;
     }

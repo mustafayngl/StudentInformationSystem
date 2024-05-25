@@ -1,25 +1,25 @@
 ﻿@model StudentInformationSystem.Models.Grade
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Grade";
 }
 
-<h1>Create</h1>
+<h1>Create Grade</h1>
 
 <h4>Grade</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="StudentNumber" class="control-label"></label>
-                <input asp-for="StudentNumber" class="form-control" />
+                <select asp-for="StudentNumber" class="form-control" asp-items="ViewBag.StudentList"></select>
                 <span asp-validation-for="StudentNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Code" class="control-label"></label>
-                <input asp-for="Code" class="form-control" />
+                <select asp-for="Code" class="form-control" asp-items="ViewBag.LessonList"></select>
                 <span asp-validation-for="Code" class="text-danger"></span>
             </div>
             <div class="form-group">
