@@ -177,8 +177,10 @@ namespace StudentInformationSystem.Controllers
             {
                 case "admin":
                     return RedirectToAction("Index", "Admin"); // Redirect to admin dashboard
+                case "teacher":
+                    return RedirectToAction("Index", "TeacherMain"); // Redirect to teacher dashboard
                 case "student":
-                    return RedirectToAction("DetailsByIdentityNumber", "Student", new { identityNumber = user.IdentityNumber }); // Redirect to student details
+                    return RedirectToAction("DetailsByIdentityNumber", "StudentMain", new { identityNumber = user.IdentityNumber }); // Redirect to student details
                 default:
                     ModelState.AddModelError("", "Unknown role.");
                     return View(model);

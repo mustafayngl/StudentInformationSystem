@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<StudentInformationSystem.Models.Student>
 
 @{
-    Layout = ViewData["Layout"]?.ToString();
+    ViewData["Title"] = "Index";
 }
 
 <h1>Student Dashboard</h1>
@@ -15,6 +15,9 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.IdentityNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentNumber)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -46,6 +49,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.IdentityNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentNumber)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
