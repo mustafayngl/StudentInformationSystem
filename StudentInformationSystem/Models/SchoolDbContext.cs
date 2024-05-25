@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StudentInformationSystem.Models;
 
 namespace StudentInformationSystem.Models
 {
@@ -18,5 +19,7 @@ namespace StudentInformationSystem.Models
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().Property(u => u.IdentityNumber).IsRequired().HasMaxLength(50);
         }
+        public DbSet<StudentInformationSystem.Models.Grade> Grade { get; set; } = default!;
+        public DbSet<StudentInformationSystem.Models.Announcement> Announcement { get; set; } = default!;
     }
 }
