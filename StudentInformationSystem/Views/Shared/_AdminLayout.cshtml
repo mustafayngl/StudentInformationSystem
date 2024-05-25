@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"] - Admin Layout</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <!-- Admin-specific navigation and header content -->
+    </header>
+    <main role="main" class="container">
+        @RenderBody()
+    </main>
+    <footer>
+        <!-- Admin-specific footer content -->
+    </footer>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

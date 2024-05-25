@@ -21,6 +21,7 @@ namespace StudentInformationSystem.Controllers
         // GET: Student
         public async Task<IActionResult> Index()
         {
+            ViewData["Layout"] = "~/Views/Shared/_StudentLayout.cshtml"; // Layout tanımlaması eklendi
             return View(await _context.Students.ToListAsync());
         }
 
@@ -166,5 +167,12 @@ namespace StudentInformationSystem.Controllers
         {
             return _context.Students.Any(e => e.Id == id);
         }
+
+        // Buraya kendi eklemek istediğiniz ek fonksiyonları ekleyebilirsiniz.
+        // Örneğin:
+        // public IActionResult CustomAction()
+        // {
+        //     return View();
+        // }
     }
 }

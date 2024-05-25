@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<StudentInformationSystem.Models.Student>
 
 @{
-    ViewData["Title"] = "Index";
+    Layout = ViewData["Layout"]?.ToString();
 }
 
-<h1>Index</h1>
+<h1>Student Dashboard</h1>
+
 
 <p>
     <a asp-action="Create">Create New</a>
