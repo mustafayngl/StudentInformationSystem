@@ -1,7 +1,11 @@
 ﻿@model IEnumerable<StudentInformationSystem.Models.Lesson>
 
-<h2>Teacher Main Page</h2>
+@{
+    ViewData["Title"] = "Index";
+}
 
+<h2>Teacher Main Page</h2>
+<div class="button-container">
 <div>
     <h3>Manage Lessons</h3>
     <a href="@Url.Action("Index", "Lesson")">Lessons</a>
@@ -13,4 +17,5 @@
 <div>
     <h3>Manage Announcements</h3>
     <a href="@Url.Action("Index", "Announcement")">Announcements</a>
+</div>
 </div>

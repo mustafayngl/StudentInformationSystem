@@ -33,6 +33,9 @@ namespace StudentInformationSystem.Controllers
                 return NotFound();
             }
 
+            var announcements = await _context.Announcements.ToListAsync();
+            ViewBag.Announcements = announcements;
+
             return View("MyDetails", student); // Details view'ını kullanarak öğrenci bilgilerini gösteriyoruz
         }
 
