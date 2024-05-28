@@ -33,7 +33,7 @@ namespace StudentInformationSystem.Controllers
                 return NotFound();
             }
 
-            return View("Index", student); // Details view'ını kullanarak öğrenci bilgilerini gösteriyoruz
+            return View("MyDetails", student); // Details view'ını kullanarak öğrenci bilgilerini gösteriyoruz
         }
 
         public IActionResult LessonPlan()
