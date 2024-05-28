@@ -1,19 +1,76 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>@ViewData["Title"] - Admin Layout</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Admin Panel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            background-color: #f8f9fa; /* Açık gri arka plan rengi */
+        }
+
+        .admin-button {
+            background-color: #343a40; /* Koyu gri arka plan rengi */
+            color: white;
+            margin: 50px 0; /* Eşit boşluk */
+            height: 60px; /* Butonların yüksekliği */
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+        }
+
+            .admin-button:hover {
+                background-color: #23272b; /* Daha koyu gri renkte hover efekti */
+                color: white;
+            }
+
+        .full-height {
+            height: calc(100vh - 56px); /* Sayfanın tamamını kaplama */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <!-- Admin-specific navigation and header content -->
-    </header>
-    <main role="main" class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/Admin/Index">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Student/Index">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Teacher/Index">Teachers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Grade/Index">Grades</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Announcement/Index">Announcements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/User/Logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4 full-height">
         @RenderBody()
-    </main>
-    <footer>
-        <!-- Admin-specific footer content -->
-    </footer>
-    @RenderSection("Scripts", required: false)
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

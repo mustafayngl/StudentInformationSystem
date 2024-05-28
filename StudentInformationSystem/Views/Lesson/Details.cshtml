@@ -1,42 +1,33 @@
 ﻿@model StudentInformationSystem.Models.Lesson
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Lesson Details";
 }
 
-<h1>Details</h1>
+<h1 class="text-center">Lesson Details</h1>
 
-<div>
-    <h4>Lesson</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Code)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Code)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Semester)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Semester)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Credit)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Credit)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">Lesson Information</h4>
+                    <dl class="row">
+                        <dt class="col-sm-3">Code:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Code)</dd>
+                        <dt class="col-sm-3">Name:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+                        <dt class="col-sm-3">Semester:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Semester)</dd>
+                        <dt class="col-sm-3">Credit:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Credit)</dd>
+                    </dl>
+                </div>
+                <div class="card-footer text-right">
+                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Index" class="btn btn-secondary ml-2">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

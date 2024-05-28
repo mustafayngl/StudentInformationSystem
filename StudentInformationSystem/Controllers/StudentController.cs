@@ -19,11 +19,22 @@ namespace StudentInformationSystem.Controllers
         }
 
         // GET: Student
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
             ViewData["Layout"] = "~/Views/Shared/_StudentLayout.cshtml"; // Layout tanımlaması eklendi
-            return View(await _context.Students.ToListAsync());
+
+            var students = _context.Students.AsQueryable();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                students = students.Where(s =>
+                    EF.Functions.Like(s.Name, $"%{search}%") ||
+                    EF.Functions.Like(s.Surname, $"%{search}%"));
+            }
+
+            return View(await students.ToListAsync());
         }
+
 
         // GET: Student/Details/5
         public async Task<IActionResult> Details(int? id)

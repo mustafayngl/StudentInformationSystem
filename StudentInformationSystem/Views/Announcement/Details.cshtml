@@ -1,36 +1,25 @@
 ﻿@model StudentInformationSystem.Models.Announcement
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Announcement Details";
 }
 
-<h1>Details</h1>
+<h1 class="text-center">Announcement Details</h1>
 
-<div>
-    <h4>Announcement</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">@Html.DisplayFor(model => model.Title)</h4>
+                    <p class="card-text">@Html.DisplayFor(model => model.Content)</p>
+                    <p class="card-text">Date: @Html.DisplayFor(model => model.Date)</p>
+                </div>
+                <div class="card-footer text-right">
+                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Index" class="btn btn-secondary ml-2">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

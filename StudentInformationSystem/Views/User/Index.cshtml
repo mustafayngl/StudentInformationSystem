@@ -1,48 +1,88 @@
 ﻿@model IEnumerable<StudentInformationSystem.Models.User>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewBag.Title = "User Information System";
 }
 
-<h1>Index</h1>
+<style>
+    .card {
+        border-radius: 15px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Role)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Username)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Role)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+    .card-body {
+        padding: 15px;
+    }
+
+    .btn-link {
+        color: inherit;
+        text-decoration: none;
+    }
+
+        .btn-link:hover {
+            color: inherit;
+            text-decoration: underline;
         }
-    </tbody>
-</table>
+</style>
+
+<h1 class="text-center">Users</h1>
+
+<div class="container mt-4">
+    <div class="row justify-content-end mb-3">
+        <div class="col-md-4">
+            <form method="get" action="/User/Index" class="input-group">
+                <input type="text" name="search" placeholder="Search by username" class="form-control">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        @foreach (var user in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card" style="cursor: pointer;" onclick="toggleDetails('@user.Id')">
+                    <div class="card-body">
+                        <h5 class="card-title">@user.Username</h5>
+                        <p class="card-text">
+                            <strong>Role:</strong> @user.Role
+                        </p>
+                        <div id="details-@user.Id" style="display: none;">
+                            <p class="card-text">
+                                <strong>Password:</strong> @user.Password
+                            </p>
+                            <a href="/User/Edit/@user.Id" class="btn btn-link">Edit</a>
+                            <a href="/User/Delete/@user.Id" class="btn btn-link">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <a href="/User/Create" class="btn btn-primary">Create New User</a>
+        </div>
+    </div>
+</div>
+
+<footer class="text-center mt-4">
+    <p>© 2024 - UserInformationSystem - Privacy</p>
+</footer>
+
+<script>
+    function toggleDetails(userId) {
+        var detailsDiv = document.getElementById('details-' + userId);
+        if (detailsDiv.style.display === 'none') {
+            detailsDiv.style.display = 'block';
+        } else {
+            detailsDiv.style.display = 'none';
+        }
+    }
+</script>

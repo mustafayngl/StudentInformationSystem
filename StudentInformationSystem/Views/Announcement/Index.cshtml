@@ -1,47 +1,88 @@
 ﻿@model IEnumerable<StudentInformationSystem.Models.Announcement>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewBag.Title = "Announcement Information System";
 }
 
-<h1>Index</h1>
+<style>
+    .card {
+        border-radius: 15px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    .card-body {
+        padding: 15px;
+    }
+
+    .btn-link {
+        color: inherit;
+        text-decoration: none;
+    }
+
+        .btn-link:hover {
+            color: inherit;
+            text-decoration: underline;
+        }
+</style>
+
+<h1 class="text-center">Announcements</h1>
+
+<div class="container mt-4">
+    <div class="row justify-content-end mb-3">
+        <div class="col-md-4">
+            <form method="get" action="/Announcement/Index" class="input-group">
+                <input type="text" name="search" placeholder="Search by title" class="form-control">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row">
+        @foreach (var announcement in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card" style="cursor: pointer;" onclick="toggleDetails('@announcement.Id')">
+                    <div class="card-body">
+                        <h5 class="card-title">@announcement.Title</h5>
+                        <p class="card-text">
+                            <strong>Date:</strong> @announcement.Date.ToShortDateString()
+                        </p>
+                        <div id="details-@announcement.Id" style="display: none;">
+                            <p class="card-text">
+                                <strong>Content:</strong> @announcement.Content
+                            </p>
+                            <a href="/Announcement/Edit/@announcement.Id" class="btn btn-link">Edit</a>
+                            <a href="/Announcement/Delete/@announcement.Id" class="btn btn-link">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <a href="/Announcement/Create" class="btn btn-primary">Create New Announcement</a>
+        </div>
+    </div>
+</div>
+
+<footer class="text-center mt-4">
+    <p>© 2024 - AnnouncementInformationSystem - Privacy</p>
+</footer>
+
+<script>
+    function toggleDetails(announcementId) {
+        var detailsDiv = document.getElementById('details-' + announcementId);
+        if (detailsDiv.style.display === 'none') {
+            detailsDiv.style.display = 'block';
+        } else {
+            detailsDiv.style.display = 'none';
+        }
+    }
+</script>

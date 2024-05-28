@@ -1,42 +1,14 @@
-﻿@model IEnumerable<StudentInformationSystem.Models.User>
-
-@{
-    Layout = ViewData["Layout"]?.ToString();
+﻿@{
+    ViewBag.Title = "Admin Dashboard";
 }
 
-<h1>Admin Dashboard</h1>
+<h1 class="text-center">Admin Dashboard</h1>
 
+<div class="d-flex flex-column align-items-center w-100 full-height">
+    <a href="/Lesson/Index" class="btn w-75 admin-button" style="background-color: #007bff; color: white; margin: 10px 0; height: 60px; border: 2px solid #007bff; border-radius: 5px; font-size: 1.2em;">Manage Lessons</a>
+    <a href="/User/Index" class="btn w-75 admin-button" style="background-color: #007bff; color: white; margin: 10px 0; height: 60px; border: 2px solid #007bff; border-radius: 5px; font-size: 1.2em;">Manage Users</a>
+    <a href="/Teacher/Index" class="btn w-75 admin-button" style="background-color: #007bff; color: white; margin: 10px 0; height: 60px; border: 2px solid #007bff; border-radius: 5px; font-size: 1.2em;">Manage Teachers</a>
+    <a href="/Student/Index" class="btn w-75 admin-button" style="background-color: #007bff; color: white; margin: 10px 0; height: 60px; border: 2px solid #007bff; border-radius: 5px; font-size: 1.2em;">Manage Students</a>
+    <a href="/Announcement/Index" class="btn w-75 admin-button" style="background-color: #007bff; color: white; margin: 10px 0; height: 60px; border: 2px solid #007bff; border-radius: 5px; font-size: 1.2em;">Manage Announcements</a>
 
-<div class="button-container">
-    <div>
-        <a href="@Url.Action("Index", "Lesson")" class="btn btn-primary manage-button">Manage Lessons</a>
-    </div>
-    <div>
-        <a href="@Url.Action("Index", "User")" class="btn btn-primary manage-button">Manage Users</a>
-    </div>
-    <div>
-        <a href="@Url.Action("Index", "Teacher")" class="btn btn-primary manage-button">Manage Teachers</a>
-    </div>
-    <div>
-        <a href="@Url.Action("Index", "Student")" class="btn btn-primary manage-button">Manage Students</a>
-    </div>
 </div>
-
-<style>
-    .button-container {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin: 20px 0;
-    }
-
-    .manage-button {
-        flex: 1;
-        min-width: 200px;
-        text-align: center;
-        padding: 20px;
-        font-size: 16px;
-        margin: 5px;
-    }
-</style>

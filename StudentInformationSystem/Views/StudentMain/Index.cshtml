@@ -4,59 +4,30 @@
     ViewData["Title"] = "My Details";
 }
 
-<h1>My Details</h1>
-
-<div>
-    <h4>Student</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IdentityNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IdentityNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.StudentNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.StudentNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Surname)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Surname)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BirthDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BirthDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-    </dl>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">My Details</h1>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Student Information</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">Identity Number:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.IdentityNumber)</dd>
+                <dt class="col-sm-3">Student Number:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.StudentNumber)</dd>
+                <dt class="col-sm-3">Name:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+                <dt class="col-sm-3">Surname:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Surname)</dd>
+                <dt class="col-sm-3">Gender:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Gender)</dd>
+                <dt class="col-sm-3">Birth Date:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.BirthDate)</dd>
+                <dt class="col-sm-3">Phone Number:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+                <dt class="col-sm-3">Email:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+            </dl>
+        </div>
+    </div>
 </div>
