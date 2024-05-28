@@ -40,6 +40,9 @@ namespace StudentInformationSystem.Controllers
         {
             return View();
         }
-
+        public IActionResult AcademicCalendar()
+        {
+            return View();
+        }
     }
 }
