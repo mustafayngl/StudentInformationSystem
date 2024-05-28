@@ -44,5 +44,47 @@ namespace StudentInformationSystem.Controllers
         {
             return View();
         }
+
+        // Öğrenci kimlik numarasına göre detaylarını ve notlarını gösteren action
+        //[Authorize]
+        public async Task<IActionResult> MyGrades(string identityNumber)
+        {
+            if (string.IsNullOrEmpty(identityNumber))
+            {
+                return NotFound();
+            }
+
+            var student = await _context.Students
+                .FirstOrDefaultAsync(m => m.IdentityNumber == identityNumber);
+
+            if (student == null)
+            {
+                return NotFound();
+            }
+            
+            // Öğrenciye ait notları çekmek
+            var grades = await _context.Grades
+                .Where(g => g.StudentId == student.Id)
+                .ToListAsync();
+            /*
+            foreach (var grade in grades)
+            {
+                // Ders adını çekmek için ilgili dersin koduna göre ilgili dersi bulun
+                var lesson = await _context.Lessons.FirstOrDefaultAsync(l => l.Code == grade.Code);
+
+                // Eğer ders bulunamazsa, uyarı verebilirsiniz veya herhangi bir işlem yapabilirsiniz
+                if (lesson != null)
+                {
+                    // Ders adını not nesnesine atayın
+                    grade.LessonName = lesson.Name;
+                }
+            }
+            */
+            // Görünüme öğrenci ve notları bir arada gönder
+            ViewBag.Student = student;
+            ViewBag.Grades = grades;
+            
+            return View();
+        }
     }
 }
