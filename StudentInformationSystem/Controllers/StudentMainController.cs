@@ -12,11 +12,11 @@ namespace StudentInformationSystem.Controllers
         {
             _context = context;
         }
+
         public IActionResult Index()
         {
             return View();
         }
-
 
         // GET: Student/DetailsByIdentityNumber/12345678
         public async Task<IActionResult> DetailsByIdentityNumber(string identityNumber)
@@ -34,6 +34,11 @@ namespace StudentInformationSystem.Controllers
             }
 
             return View("Index", student); // Details view'ını kullanarak öğrenci bilgilerini gösteriyoruz
+        }
+
+        public IActionResult LessonPlan()
+        {
+            return View();
         }
 
     }
