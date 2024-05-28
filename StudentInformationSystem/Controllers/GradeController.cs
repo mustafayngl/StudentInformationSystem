@@ -69,6 +69,7 @@ namespace StudentInformationSystem.Controllers
                 // Assign the IDs of the student and lesson to the grade object
                 grade.StudentId = student.Id;
                 grade.LessonId = lesson.Id;
+                grade.LessonName = lesson.Name;
 
                 // Add the grade to the context and save changes
                 _context.Add(grade);

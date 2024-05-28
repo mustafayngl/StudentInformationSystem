@@ -66,7 +66,7 @@ namespace StudentInformationSystem.Controllers
             var grades = await _context.Grades
                 .Where(g => g.StudentId == student.Id)
                 .ToListAsync();
-            /*
+            
             foreach (var grade in grades)
             {
                 // Ders adını çekmek için ilgili dersin koduna göre ilgili dersi bulun
@@ -79,7 +79,7 @@ namespace StudentInformationSystem.Controllers
                     grade.LessonName = lesson.Name;
                 }
             }
-            */
+            
             // Görünüme öğrenci ve notları bir arada gönder
             ViewBag.Student = student;
             ViewBag.Grades = grades;
