@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -168,23 +171,47 @@ namespace StudentInformationSystem.Controllers
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == model.Username && u.Password == model.Password && u.IdentityNumber == model.IdentityNumber);
             if (user == null)
             {
-                ModelState.AddModelError("", "Invalid username, password or identity number.");
+                ModelState.AddModelError("", "Invalid username, password, or identity number.");
                 return View(model);
             }
 
             // Authentication successful
+            var claims = new List<Claim>
+            {
+               new Claim(ClaimTypes.Name, user.Username),
+               new Claim(ClaimTypes.Role, user.Role), // Kullanıcının rolü
+                // İhtiyaç duyulan diğer isteğe bağlı talepler buraya eklenebilir
+            };
+
+            var userIdentity = new ClaimsIdentity(claims, "login");
+            ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+
+            await HttpContext.SignInAsync(principal); // Kullanıcıyı kimlik doğrulama mekanizması aracılığıyla giriş yapmış olarak işaretle
+
+            // Rollerle birlikte yönlendirme yap
             switch (user.Role)
             {
                 case "admin":
-                    return RedirectToAction("Index", "Admin"); // Redirect to admin dashboard
+                    return RedirectToAction("Index", "Admin"); // Admin paneline yönlendir
                 case "teacher":
-                    return RedirectToAction("Index", "TeacherMain"); // Redirect to teacher dashboard
+                    return RedirectToAction("Index", "TeacherMain"); // Öğretmen paneline yönlendir
                 case "student":
-                    return RedirectToAction("DetailsByIdentityNumber", "StudentMain", new { identityNumber = user.IdentityNumber }); // Redirect to student details
+                    return RedirectToAction("DetailsByIdentityNumber", "StudentMain", new { identityNumber = user.IdentityNumber }); // Öğrenci detaylarına yönlendir
                 default:
                     ModelState.AddModelError("", "Unknown role.");
                     return View(model);
             }
+        }
+
+        public IActionResult Logout()
+        {
+            // Kullanıcı oturumu kapatılıyor
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Kullanıcı rollerini ve kimlik bilgilerini temizle
+            HttpContext.User = new System.Security.Claims.ClaimsPrincipal(new System.Security.Claims.ClaimsIdentity());
+
+            return RedirectToAction("Login", "User");
         }
     }
 }

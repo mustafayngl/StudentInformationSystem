@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentInformationSystem.Models;
 
 namespace StudentInformationSystem.Controllers
 {
+    [Authorize(Roles = "student")]
     public class StudentMainController : Controller
     {
         private readonly SchoolDbContext _context;
