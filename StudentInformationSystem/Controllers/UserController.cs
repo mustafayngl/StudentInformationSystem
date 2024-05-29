@@ -168,18 +168,18 @@ namespace StudentInformationSystem.Controllers
                 return View(model);
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == model.Username && u.Password == model.Password && u.IdentityNumber == model.IdentityNumber);
-            if (user == null)
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == model.Username && u.IdentityNumber == model.IdentityNumber);
+            if (user == null || user.Password != model.Password)
             {
                 ModelState.AddModelError("", "Invalid username, password, or identity number.");
-                return View(model);
+                return View(user);
             }
 
             // Authentication successful
             var claims = new List<Claim>
             {
-               new Claim(ClaimTypes.Name, user.Username),
-               new Claim(ClaimTypes.Role, user.Role), // Kullanıcının rolü
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.Role), // Kullanıcının rolü
                 // İhtiyaç duyulan diğer isteğe bağlı talepler buraya eklenebilir
             };
 
@@ -203,13 +203,10 @@ namespace StudentInformationSystem.Controllers
             }
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
             // Kullanıcı oturumu kapatılıyor
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            // Kullanıcı rollerini ve kimlik bilgilerini temizle
-            HttpContext.User = new System.Security.Claims.ClaimsPrincipal(new System.Security.Claims.ClaimsIdentity());
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("Login", "User");
         }

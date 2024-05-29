@@ -66,6 +66,16 @@
                 @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
+            <!-- Hata mesajını göstermek için -->
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <span>@error.ErrorMessage</span>
+                    }
+                </div>
+            }
         }
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
