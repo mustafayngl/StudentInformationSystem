@@ -1,21 +1,60 @@
 ﻿@model IEnumerable<StudentInformationSystem.Models.Lesson>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Teacher Main Page";
 }
 
-<h2>Teacher Main Page</h2>
-<div class="button-container">
-<div>
-    <h3>Manage Lessons</h3>
-    <a href="@Url.Action("Index", "Lesson")">Lessons</a>
-</div>
-<div>
-    <h3>Manage Grade</h3>
-    <a href="@Url.Action("Index", "Grade")">Grades</a>
-</div>
-<div>
-    <h3>Manage Announcements</h3>
-    <a href="@Url.Action("Index", "Announcement")">Announcements</a>
-</div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Teacher Panel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            background-color: #f8f9fa; /* Açık gri arka plan rengi */
+        }
+
+        .teacher-button {
+            background-color: #007bff; /* Mavi arka plan rengi */
+            color: white;
+            margin: 20px 0; /* Eşit boşluk */
+            height: 60px; /* Butonların yüksekliği */
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            font-size: 1.2em;
+            width: 75%;
+        }
+
+            .teacher-button:hover {
+                background-color: #0056b3; /* Daha koyu mavi renkte hover efekti */
+                color: white;
+            }
+
+        .full-height {
+            height: calc(100vh - 56px); /* Sayfanın tamamını kaplama */
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            padding-top: 50px; /* Sayfanın üst kısmına taşıma */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4 full-height">
+        <h2 class="text-center">Teacher Main Page</h2>
+        <div class="button-container text-center">
+            <a href="@Url.Action("Index", "Lesson")" class="btn teacher-button">Manage Lessons</a>
+            <a href="@Url.Action("Index", "Grade")" class="btn teacher-button">Manage Grades</a>
+            <a href="@Url.Action("Index", "Announcement")" class="btn teacher-button">Manage Announcements</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

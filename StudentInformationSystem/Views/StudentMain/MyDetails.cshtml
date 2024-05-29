@@ -7,90 +7,81 @@
     var lessonNames = ViewBag.LessonNames as Dictionary<int, string>;
 }
 
-<h1>My Details</h1>
+<h1 class="text-center">My Details</h1>
 
-<div>
-    <h4>Student</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IdentityNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IdentityNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StudentNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StudentNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Surname)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Surname)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BirthDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BirthDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-    </dl>
-</div>
-<h3>Announcements</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var announcement in announcements)
-        {
-            <tr>
-                <td>@announcement.Title</td>
-                <td>@announcement.Content</td>
-                <td>@announcement.Date</td>
-            </tr>
-        }
-        @if (!announcements.Any())
-        {
-            <tr>
-                <td colspan="3">No announcements available</td>
-            </tr>
-        }
-    </tbody>
-</table>
-<div>
-    <a asp-controller="StudentMain" asp-action="LessonPlan" class="btn btn-primary">Lesson Plan</a>
-    <a asp-controller="StudentMain" asp-action="AcademicCalendar" class="btn btn-primary">Academic Calendar</a>
-    <a asp-controller="StudentMain" asp-action="MyGrades" asp-route-identityNumber="@Model.IdentityNumber" class="btn btn-primary">My Grades</a>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">Student Information</h4>
+                    <dl class="row">
+                        <dt class="col-sm-3">Identity Number:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.IdentityNumber)</dd>
+                        <dt class="col-sm-3">Student Number:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.StudentNumber)</dd>
+                        <dt class="col-sm-3">Name:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+                        <dt class="col-sm-3">Surname:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Surname)</dd>
+                        <dt class="col-sm-3">Gender:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Gender)</dd>
+                        <dt class="col-sm-3">Birth Date:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.BirthDate)</dd>
+                        <dt class="col-sm-3">Phone Number:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+                        <dt class="col-sm-3">Email:</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+                    </dl>
+                </div>
+                <div class="card-footer text-right">
+                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Index" class="btn btn-secondary ml-2">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">Announcements</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Content</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var announcement in announcements)
+                            {
+                                <tr>
+                                    <td>@announcement.Title</td>
+                                    <td>@announcement.Content</td>
+                                    <td>@announcement.Date</td>
+                                </tr>
+                            }
+                            @if (!announcements.Any())
+                            {
+                                <tr>
+                                    <td colspan="3">No announcements available</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8 text-right">
+            <a asp-controller="StudentMain" asp-action="LessonPlan" class="btn btn-primary">Lesson Plan</a>
+            <a asp-controller="StudentMain" asp-action="AcademicCalendar" class="btn btn-primary ml-2">Academic Calendar</a>
+            <a asp-controller="StudentMain" asp-action="MyGrades" asp-route-identityNumber="@Model.IdentityNumber" class="btn btn-primary ml-2">My Grades</a>
+        </div>
+    </div>
 </div>
