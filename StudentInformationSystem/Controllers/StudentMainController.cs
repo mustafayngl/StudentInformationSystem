@@ -12,11 +12,11 @@ namespace StudentInformationSystem.Controllers
         {
             _context = context;
         }
+
         public IActionResult Index()
         {
             return View();
         }
-
 
         // GET: Student/DetailsByIdentityNumber/12345678
         public async Task<IActionResult> DetailsByIdentityNumber(string identityNumber)
@@ -33,8 +33,61 @@ namespace StudentInformationSystem.Controllers
                 return NotFound();
             }
 
-            return View("Index", student); // Details view'ını kullanarak öğrenci bilgilerini gösteriyoruz
+            var announcements = await _context.Announcements.ToListAsync();
+            ViewBag.Announcements = announcements;
+
+            return View("MyDetails", student); // Details view'ını kullanarak öğrenci bilgilerini gösteriyoruz
         }
 
+        public IActionResult LessonPlan()
+        {
+            return View();
+        }
+        public IActionResult AcademicCalendar()
+        {
+            return View();
+        }
+
+        // Öğrenci kimlik numarasına göre detaylarını ve notlarını gösteren action
+        //[Authorize]
+        public async Task<IActionResult> MyGrades(string identityNumber)
+        {
+            if (string.IsNullOrEmpty(identityNumber))
+            {
+                return NotFound();
+            }
+
+            var student = await _context.Students
+                .FirstOrDefaultAsync(m => m.IdentityNumber == identityNumber);
+
+            if (student == null)
+            {
+                return NotFound();
+            }
+            
+            // Öğrenciye ait notları çekmek
+            var grades = await _context.Grades
+                .Where(g => g.StudentId == student.Id)
+                .ToListAsync();
+            
+            foreach (var grade in grades)
+            {
+                // Ders adını çekmek için ilgili dersin koduna göre ilgili dersi bulun
+                var lesson = await _context.Lessons.FirstOrDefaultAsync(l => l.Code == grade.Code);
+
+                // Eğer ders bulunamazsa, uyarı verebilirsiniz veya herhangi bir işlem yapabilirsiniz
+                if (lesson != null)
+                {
+                    // Ders adını not nesnesine atayın
+                    grade.LessonName = lesson.Name;
+                }
+            }
+            
+            // Görünüme öğrenci ve notları bir arada gönder
+            ViewBag.Student = student;
+            ViewBag.Grades = grades;
+            
+            return View();
+        }
     }
 }

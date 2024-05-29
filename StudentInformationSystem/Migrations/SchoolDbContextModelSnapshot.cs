@@ -44,7 +44,7 @@ namespace StudentInformationSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Announcement");
+                    b.ToTable("Announcement", (string)null);
                 });
 
             modelBuilder.Entity("StudentInformationSystem.Models.Grade", b =>
@@ -79,7 +79,7 @@ namespace StudentInformationSystem.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Grade");
+                    b.ToTable("Grade", (string)null);
                 });
 
             modelBuilder.Entity("StudentInformationSystem.Models.Lesson", b =>
@@ -110,7 +110,7 @@ namespace StudentInformationSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Lessons");
+                    b.ToTable("Lessons", (string)null);
                 });
 
             modelBuilder.Entity("StudentInformationSystem.Models.Student", b =>
@@ -164,7 +164,7 @@ namespace StudentInformationSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("StudentInformationSystem.Models.Teacher", b =>
@@ -201,7 +201,7 @@ namespace StudentInformationSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teachers");
+                    b.ToTable("Teachers", (string)null);
                 });
 
             modelBuilder.Entity("StudentInformationSystem.Models.User", b =>
@@ -233,7 +233,7 @@ namespace StudentInformationSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("StudentInformationSystem.Models.Grade", b =>

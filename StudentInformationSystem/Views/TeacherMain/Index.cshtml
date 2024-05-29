@@ -1,24 +1,21 @@
 ﻿@model IEnumerable<StudentInformationSystem.Models.Lesson>
 
-<h2>Teacher Main Page</h2>
+@{
+    ViewData["Title"] = "Index";
+}
 
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-body">
-            <h3 class="card-title">Manage Lessons</h3>
-            <a href="@Url.Action("Index", "Lesson")" class="btn btn-primary">Lessons</a>
-        </div>
-    </div>
-    <div class="card mt-3">
-        <div class="card-body">
-            <h3 class="card-title">Manage Grade</h3>
-            <a href="@Url.Action("Index", "Grade")" class="btn btn-primary">Grades</a>
-        </div>
-    </div>
-    <div class="card mt-3">
-        <div class="card-body">
-            <h3 class="card-title">Manage Announcements</h3>
-            <a href="@Url.Action("Index", "Announcement")" class="btn btn-primary">Announcements</a>
-        </div>
-    </div>
+<h2>Teacher Main Page</h2>
+<div class="button-container">
+<div>
+    <h3>Manage Lessons</h3>
+    <a href="@Url.Action("Index", "Lesson")">Lessons</a>
+</div>
+<div>
+    <h3>Manage Grade</h3>
+    <a href="@Url.Action("Index", "Grade")">Grades</a>
+</div>
+<div>
+    <h3>Manage Announcements</h3>
+    <a href="@Url.Action("Index", "Announcement")">Announcements</a>
+</div>
 </div>

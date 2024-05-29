@@ -5,6 +5,8 @@ namespace StudentInformationSystem.Models
 {
     public class Grade
     {
+        internal string LessonName;
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please select the student")]
@@ -16,7 +18,6 @@ namespace StudentInformationSystem.Models
         // Additional properties
         public int StudentId { get; set; } // Reference to Student.Id
         public int LessonId { get; set; } // Reference to Lesson.Id
-
 
         [Required(ErrorMessage = "Please enter the grade value")]
         public string GradeValue { get; set; }

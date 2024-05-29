@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "My Details";
+    var grades = ViewBag.Grades as List<StudentInformationSystem.Models.Grade>;
+    var announcements = ViewBag.Announcements as List<StudentInformationSystem.Models.Announcement>;
+    var lessonNames = ViewBag.LessonNames as Dictionary<int, string>;
 }
 
 <h1>My Details</h1>
@@ -60,7 +63,34 @@
         </dd>
     </dl>
 </div>
+<h3>Announcements</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var announcement in announcements)
+        {
+            <tr>
+                <td>@announcement.Title</td>
+                <td>@announcement.Content</td>
+                <td>@announcement.Date</td>
+            </tr>
+        }
+        @if (!announcements.Any())
+        {
+            <tr>
+                <td colspan="3">No announcements available</td>
+            </tr>
+        }
+    </tbody>
+</table>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="StudentMain" asp-action="LessonPlan" class="btn btn-primary">Lesson Plan</a>
+    <a asp-controller="StudentMain" asp-action="AcademicCalendar" class="btn btn-primary">Academic Calendar</a>
+    <a asp-controller="StudentMain" asp-action="MyGrades" asp-route-identityNumber="@Model.IdentityNumber" class="btn btn-primary">My Grades</a>
 </div>

@@ -1,0 +1,46 @@
+﻿@model StudentInformationSystem.Models.Student
+
+@{
+    ViewBag.Title = "My Grades";
+}
+
+<h2>My Grades</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Name</dt>
+        <dd class="col-sm-10">@ViewBag.Student.Name</dd>
+
+        <dt class="col-sm-2">Identity Number</dt>
+        <dd class="col-sm-10">@ViewBag.Student.IdentityNumber</dd>
+    </dl>
+</div>
+
+<h3>Grades</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Course Code</th>
+            <th>Course Name</th>
+            <th>Grade</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var grade in ViewBag.Grades)
+        {
+            <tr>
+                <td>@grade.Code</td>
+                <td>@grade.LessonName</td>
+                <td>@grade.GradeValue</td>
+            </tr>
+        }
+        @if (ViewBag.Grades.Count == 0)
+        {
+            <tr>
+                <td colspan="3">No grades available</td>
+            </tr>
+        }
+    </tbody>
+</table>
