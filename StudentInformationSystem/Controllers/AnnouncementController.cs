@@ -21,10 +21,18 @@ namespace StudentInformationSystem.Controllers
         }
 
         // GET: Announcement
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            return View(await _context.Announcement.ToListAsync());
+            var announcements = from a in _context.Announcement select a;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                announcements = announcements.Where(a => a.Title.Contains(search));
+            }
+
+            return View(await announcements.ToListAsync());
         }
+
 
         // GET: Announcement/Details/5
         public async Task<IActionResult> Details(int? id)

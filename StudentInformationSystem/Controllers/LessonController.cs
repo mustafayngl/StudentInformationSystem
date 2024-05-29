@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudentInformationSystem.Models;
 
@@ -21,9 +18,16 @@ namespace StudentInformationSystem.Controllers
         }
 
         // GET: Lesson
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            return View(await _context.Lessons.ToListAsync());
+            var lessons = from l in _context.Lessons select l;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                lessons = lessons.Where(l => l.Name.Contains(search) || l.Code.Contains(search));
+            }
+
+            return View(await lessons.ToListAsync());
         }
 
         // GET: Lesson/Details/5
@@ -34,8 +38,7 @@ namespace StudentInformationSystem.Controllers
                 return NotFound();
             }
 
-            var lesson = await _context.Lessons
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var lesson = await _context.Lessons.FirstOrDefaultAsync(m => m.Id == id);
             if (lesson == null)
             {
                 return NotFound();
@@ -51,8 +54,6 @@ namespace StudentInformationSystem.Controllers
         }
 
         // POST: Lesson/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Code,Name,Semester,Credit")] Lesson lesson)
@@ -83,8 +84,6 @@ namespace StudentInformationSystem.Controllers
         }
 
         // POST: Lesson/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Code,Name,Semester,Credit")] Lesson lesson)
@@ -125,8 +124,7 @@ namespace StudentInformationSystem.Controllers
                 return NotFound();
             }
 
-            var lesson = await _context.Lessons
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var lesson = await _context.Lessons.FirstOrDefaultAsync(m => m.Id == id);
             if (lesson == null)
             {
                 return NotFound();

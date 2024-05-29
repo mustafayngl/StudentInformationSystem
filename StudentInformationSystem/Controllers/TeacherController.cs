@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudentInformationSystem.Models;
 
@@ -21,9 +18,16 @@ namespace StudentInformationSystem.Controllers
         }
 
         // GET: Teacher
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            return View(await _context.Teachers.ToListAsync());
+            var teachers = from t in _context.Teachers select t;
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                teachers = teachers.Where(t => t.Name.Contains(search) || t.Surname.Contains(search));
+            }
+
+            return View(await teachers.ToListAsync());
         }
 
         // GET: Teacher/Details/5
@@ -34,8 +38,7 @@ namespace StudentInformationSystem.Controllers
                 return NotFound();
             }
 
-            var teacher = await _context.Teachers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var teacher = await _context.Teachers.FirstOrDefaultAsync(m => m.Id == id);
             if (teacher == null)
             {
                 return NotFound();
@@ -51,8 +54,6 @@ namespace StudentInformationSystem.Controllers
         }
 
         // POST: Teacher/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,IdentityNumber,Name,Surname,Email,Office")] Teacher teacher)
@@ -83,8 +84,6 @@ namespace StudentInformationSystem.Controllers
         }
 
         // POST: Teacher/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,IdentityNumber,Name,Surname,Email,Office")] Teacher teacher)
@@ -125,8 +124,7 @@ namespace StudentInformationSystem.Controllers
                 return NotFound();
             }
 
-            var teacher = await _context.Teachers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var teacher = await _context.Teachers.FirstOrDefaultAsync(m => m.Id == id);
             if (teacher == null)
             {
                 return NotFound();

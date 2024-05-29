@@ -22,27 +22,16 @@ namespace StudentInformationSystem.Controllers
         }
 
         // GET: User
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            return View(await _context.Users.ToListAsync());
-        }
+            var users = _context.Users.AsQueryable(); // Tüm kullanıcıları sorguya hazırla
 
-        // GET: User/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
+            if (!String.IsNullOrEmpty(search))
             {
-                return NotFound();
+                users = users.Where(u => u.Username.Contains(search)); // Kullanıcı adına göre arama yap
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return View(user);
+            return View(await users.ToListAsync());
         }
 
         // GET: User/Create
@@ -122,8 +111,7 @@ namespace StudentInformationSystem.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -210,5 +198,12 @@ namespace StudentInformationSystem.Controllers
 
             return RedirectToAction("Login", "User");
         }
+
+        private bool UserExists(string username)
+        {
+            return _context.Users.Any(e => e.Username == username);
+        }
+
     }
 }
+
