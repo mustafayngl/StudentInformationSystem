@@ -21,10 +21,19 @@ namespace StudentInformationSystem.Controllers
         }
 
         // GET: Grade
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            return View(await _context.Grade.ToListAsync());
+            var grades = from g in _context.Grade
+                         select g;
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                grades = grades.Where(g => g.StudentNumber.Contains(search));
+            }
+
+            return View(await grades.ToListAsync());
         }
+
 
         // GET: Grade/Details/5
         public async Task<IActionResult> Details(int? id)
