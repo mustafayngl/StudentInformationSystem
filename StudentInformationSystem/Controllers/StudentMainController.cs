@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudentInformationSystem.Models;
 
@@ -91,5 +96,59 @@ namespace StudentInformationSystem.Controllers
             
             return View();
         }
+
+        private bool StudentExists(int id)
+        {
+            return _context.Students.Any(s => s.Id == id);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (id <= 0)
+            {
+                return NotFound();
+            }
+
+            var student = await _context.Students.FindAsync(id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return View(student);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IdentityNumber,StudentNumber,Name,Surname,Gender,BirthDate,PhoneNumber,Email,Address")] Student student)
+        {
+            if (id != student.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(student);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException)
+                {
+                    // Genel bir hata mesajı göster
+                    ModelState.AddModelError("", "An error occurred while saving your changes.");
+                    return View(student);
+                }
+            }
+            return View(student);
+        }
+
+
+        
     }
 }

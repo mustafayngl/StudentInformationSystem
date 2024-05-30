@@ -94,7 +94,7 @@ namespace StudentInformationSystem.Controllers
         // POST: Student/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IdentityNumber,Name,Surname,Gender,BirthDate,PhoneNumber,Email,Address")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IdentityNumber,StudentNumber,Name,Surname,Gender,BirthDate,PhoneNumber,Email,Address")] Student student)
         {
             if (id != student.Id)
             {
@@ -123,6 +123,7 @@ namespace StudentInformationSystem.Controllers
             }
             return View(student);
         }
+
 
         // GET: Student/Delete/5
         public async Task<IActionResult> Delete(int? id)
